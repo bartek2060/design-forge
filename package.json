@@ -12,11 +12,10 @@
         }
     },
     "bin": {
-        "design-forge": "./dist/cli/index.js"
+        "design-forge": "node --loader ts-node/esm ./src/cli/index.ts"
     },
     "files": [
-        "dist",
-        "dist/cli",
+        "dist/**/*",
         "static"
     ],
     "scripts": {
@@ -29,14 +28,14 @@
     "dependencies": {
         "commander": "^11.0.0",
         "inquirer": "^8.2.5",
-        "prettier": "^3.3.3"
+        "prettier": "^3.3.3",
+        "ts-node": "^10.9.2"
     },
     "devDependencies": {
         "@mogielski/design-forge": "^0.0.3",
         "@types/inquirer": "^8.2.5",
         "@types/node": "^20.0.0",
         "@types/react": "^18.0.0",
-        "ts-node": "^10.9.2",
         "typescript": "^5.0.0"
     },
     "peerDependencies": {
