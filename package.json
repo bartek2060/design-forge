@@ -1,6 +1,6 @@
 {
     "name": "@mogielski/design-forge",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "description": "Type-safe design system generator with SCSS and TypeScript support",
     "type": "module",
     "main": "./dist/index.js",
