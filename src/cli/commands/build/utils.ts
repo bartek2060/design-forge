@@ -54,7 +54,10 @@ export async function loadConfigFile(configPath: string): Promise<DesignConfig> 
     logger.info(`Loading design config at: ${logger.color.cyan(absoluteConfigPath)}`);
 
     try {
-        // Create URL with explicit file protocol
+        // Register ts-node for TypeScript support
+        require('ts-node/register');
+
+        // Now we can directly import the TypeScript file
         const configUrl = new URL(`file://${absoluteConfigPath}`).href;
         const config = await import(configUrl);
 
@@ -66,22 +69,19 @@ export async function loadConfigFile(configPath: string): Promise<DesignConfig> 
             throw new Error(`Config file must default export a class that extends DesignSystem.\nFile: ${absoluteConfigPath}`);
         }
 
-        logger.info(config.default);
-
         logger.success("Design configuration loaded successfully");
         return config.default;
     } catch (error) {
         logger.error(error);
         if (error instanceof Error && error.message.includes("Cannot find module")) {
             throw new Error(
-                `Could not find config file at: ${absoluteConfigPath}\n` +
-                `Make sure the file exists and it's default export is a DesignSystem.`
+                `Could not find or load config file at: ${absoluteConfigPath}\n` +
+                `Make sure the file exists and its default export is a DesignSystem.`
             );
         }
         throw error;
     }
 }
-
 /**
  * Writes SCSS content to a file in the specified output directory
  * @param fileName Name of the file to write
