@@ -3,8 +3,14 @@
     "version": "0.0.3",
     "description": "Type-safe design system generator with SCSS and TypeScript support",
     "type": "module",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        }
+    },
     "bin": {
         "design-forge": "./dist/cli/index.js"
     },

@@ -54,8 +54,8 @@ export async function loadConfigFile(configPath: string): Promise<DesignConfig> 
     logger.info(`Loading design config at: ${logger.color.cyan(absoluteConfigPath)}`);
 
     try {
-        // Convert file path to URL format for import()
-        const configUrl = `file://${absoluteConfigPath}`;
+        // Create URL with explicit file protocol
+        const configUrl = new URL(`file://${absoluteConfigPath}`).href;
         const config = await import(configUrl);
 
         if (!config.default) {
