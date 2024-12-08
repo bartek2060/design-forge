@@ -1,5 +1,4 @@
 # Development files
-src/
 tests/
 .github/
 .vscode/
@@ -8,7 +7,3 @@ tests/
 .prettierrc
 tsconfig.json
 !TODO
-
-# Keep dist
-!dist/
-!dist/**/*
