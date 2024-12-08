@@ -16,12 +16,14 @@
     },
     "files": [
         "dist",
+        "dist/cli",
         "static"
     ],
     "scripts": {
         "build": "tsc",
         "watch": "tsc -w",
         "prepare": "npm run build",
+        "prepublishOnly": "npm run build",
         "test": "node --test"
     },
     "dependencies": {
@@ -30,6 +32,7 @@
         "prettier": "^3.3.3"
     },
     "devDependencies": {
+        "@mogielski/design-forge": "^0.0.3",
         "@types/inquirer": "^8.2.5",
         "@types/node": "^20.0.0",
         "@types/react": "^18.0.0",
