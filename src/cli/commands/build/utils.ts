@@ -54,7 +54,9 @@ export async function loadConfigFile(configPath: string): Promise<DesignConfig> 
     logger.info(`Loading design config at: ${logger.color.cyan(absoluteConfigPath)}`);
 
     try {
-        const config = await import(absoluteConfigPath);
+        // Convert file path to URL format for import()
+        const configUrl = `file://${absoluteConfigPath}`;
+        const config = await import(configUrl);
 
         if (!config.default) {
             throw new Error(`Config file must have a default export.\nFile: ${absoluteConfigPath}`);
@@ -73,7 +75,7 @@ export async function loadConfigFile(configPath: string): Promise<DesignConfig> 
         if (error instanceof Error && error.message.includes("Cannot find module")) {
             throw new Error(
                 `Could not find config file at: ${absoluteConfigPath}\n` +
-                    `Make sure the file exists and it's default export is a DesignSystem.`,
+                `Make sure the file exists and it's default export is a DesignSystem.`
             );
         }
         throw error;
