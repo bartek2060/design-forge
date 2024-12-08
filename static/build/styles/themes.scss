@@ -1,0 +1,17 @@
+@import "./tokens";
+@import "./mixins/flattenMap";
+
+// Get the first theme name
+$first-theme: nth(map-keys($theme-values), 1);
+
+// Apply first theme to :root (as default)
+:root {
+    @include flatten-map-into-css-vars(map-get($theme-values, $first-theme));
+}
+
+// Iterate through all themes
+@each $theme-name, $theme-settings in $theme-values {
+    html.#{$theme-name} {
+        @include flatten-map-into-css-vars($theme-settings);
+    }
+}

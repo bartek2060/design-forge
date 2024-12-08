@@ -1,0 +1,33 @@
+@import "@/styles/variables";
+@import "@/@design/build/styles/mixins/createUtility";
+
+.item {
+    flex-shrink: 0;
+}
+
+// Create a map of width values
+$width-values: (
+    "auto": auto,
+);
+
+// Add width values from 1 to 100
+@for $i from 1 through 100 {
+    $width-values: map-merge(
+        $width-values,
+        (#{$i}: if($i == 100, 100%, percentage($i / 100)))
+    );
+}
+
+// Create responsive utility classes for width
+@include create-utility(
+    (
+        "--column-width": "value",
+        "width": calc(var(--column-width) - var(--gap-x)),
+    ),
+    "w",
+    $width-values,
+    (
+        important: true,
+        responsive: true,
+    )
+);

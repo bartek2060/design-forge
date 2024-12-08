@@ -1,0 +1,32 @@
+@import "@/styles/variables.scss";
+
+.container {
+    $gap-x: 8vw;
+    width: calc(100% - ($gap-x * 2));
+    margin-left: auto;
+    margin-right: auto;
+
+    @media (min-width: $breakpoint-md) {
+        $gap-x: $spacing-6;
+        width: calc(100% - ($gap-x * 2));
+    }
+
+    @media (min-width: $breakpoint-lg) {
+        $gap-x: $spacing-8;
+        width: calc(100% - ($gap-x * 2));
+    }
+}
+
+// .max-sm
+// .max-md
+// .max-lg
+// etc.
+@each $name, $width in $breakpoint-values {
+    .max-#{$name} {
+        max-width: $width;
+    }
+}
+
+.max-full {
+    max-width: none;
+}

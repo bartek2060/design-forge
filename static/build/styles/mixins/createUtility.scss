@@ -1,0 +1,172 @@
+@import "../tokens";
+
+/**
+ * Default configuration for utility generation
+ * @property {boolean} important - Whether to append !important to generated CSS properties
+ * @property {boolean} responsive - Whether to generate responsive variants
+ */
+$utility-defaults: (
+    important: true,
+    responsive: true,
+) !default;
+
+/**
+ * Applies CSS properties with optional !important flag
+ * Handles both single property strings and property maps
+ * 
+ * @param {string|map} $property-map - CSS property or map of properties
+ * @param {*} $value - Value to apply to properties
+ * @param {boolean} $important - Whether to append !important
+ * 
+ * @example
+ *   // Single property
+ *   @include apply-utility-properties('margin', 1rem);
+ *   
+ *   // Property map
+ *   @include apply-utility-properties((
+ *     margin-left: 'value',
+ *     margin-right: 'value'
+ *   ), 1rem);
+ */
+@mixin apply-utility-properties($property-map, $value, $important: false) {
+    $suffix: if($important, " !important", "");
+
+    // Handle both string and map inputs
+    $normalized-properties: if(
+        type-of($property-map) == "string",
+        (
+            $property-map: "value",
+        ),
+        $property-map
+    );
+
+    @each $property, $config in $normalized-properties {
+        $final-value: if($config == "value", $value, $config);
+        #{$property}: #{$final-value}#{$suffix};
+    }
+}
+
+/**
+ * Generates a utility class name with optional responsive prefix
+ * 
+ * @param {string} $class-name - Base class name
+ * @param {string} $key - Modifier key
+ * @param {string|null} $breakpoint - Optional breakpoint prefix
+ * @return {string} Generated class name
+ * 
+ * @example
+ *   get-utility-class-name('mt', '1') => '.mt-1'
+ *   get-utility-class-name('mt', '1', 'md') => '.md\:mt-1'
+ */
+@function get-utility-class-name($class-name, $key, $breakpoint: null) {
+    @if $breakpoint {
+        @return ".#{$breakpoint}\\:#{$class-name}-#{$key}";
+    }
+    @return ".#{$class-name}-#{$key}";
+}
+
+/**
+ * Base mixin for generating a single utility class
+ * 
+ * @param {string|map} $properties - CSS property/properties to generate
+ * @param {string} $class-name - Base class name
+ * @param {string} $key - Modifier key
+ * @param {*} $value - CSS value to apply
+ * @param {boolean} $important - Whether to append !important
+ * @param {string|null} $breakpoint - Optional breakpoint prefix
+ */
+@mixin create-utility-base(
+    $properties,
+    $class-name,
+    $key,
+    $value,
+    $important: true,
+    $breakpoint: null
+) {
+    #{get-utility-class-name($class-name, $key, $breakpoint)} {
+        @include apply-utility-properties($properties, $value, $important);
+    }
+}
+
+/**
+ * Main utility generator that creates utility classes with optional responsive variants
+ * 
+ * @param {string|map} $properties - CSS property/properties to generate
+ * @param {string} $class-name - Base class name for the utility
+ * @param {map} $values - Map of modifier keys to values
+ * @param {map} $options - Configuration options
+ * 
+ * @example
+ *   // Basic usage
+ *   @include create-utility(
+ *     'margin-top',
+ *     'mt',
+ *     (
+ *       1: 1rem,
+ *       2: 2rem
+ *     )
+ *   );
+ * 
+ *   // With options
+ *   @include create-utility(
+ *     (margin-left: 'value', margin-right: 'value'),
+ *     'mx',
+ *     $spacing-values,
+ *     (
+ *       important: false,
+ *       responsive: true
+ *     )
+ *   );
+ */
+@mixin create-utility($properties, $class-name, $values, $options: ()) {
+    // Merge options with defaults
+    $config: map-merge($utility-defaults, $options);
+    $important: map-get($config, "important");
+    $responsive: map-get($config, "responsive");
+
+    // Generate base utilities
+    @each $key, $value in $values {
+        @include create-utility-base($properties, $class-name, $key, $value, $important);
+    }
+
+    // Generate responsive variants if enabled
+    @if $responsive {
+        @each $breakpoint, $width in $breakpoint-values {
+            @media screen and (min-width: #{$width}) {
+                @each $key, $value in $values {
+                    @include create-utility-base(
+                        $properties,
+                        $class-name,
+                        $key,
+                        $value,
+                        $important,
+                        $breakpoint
+                    );
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Legacy mixin for generating responsive utilities
+ * Maintained for backwards compatibility
+ * 
+ * @deprecated Use create-utility with responsive option instead
+ * 
+ * @param {string|map} $properties - CSS property/properties to generate
+ * @param {string} $class-name - Base class name
+ * @param {map} $values - Map of modifier keys to values
+ * @param {boolean} $important - Whether to append !important
+ */
+@mixin create-responsive-utility($properties, $class-name, $values, $important: true) {
+    @include create-utility(
+        $properties,
+        $class-name,
+        $values,
+        (
+            important: $important,
+            responsive: true,
+        )
+    );
+}

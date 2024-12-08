@@ -1,0 +1,7 @@
+@import "@/styles/variables";
+
+.row {
+    display: flex;
+    width: 100%;
+    gap: var(--gap-y) var(--gap-x);
+}

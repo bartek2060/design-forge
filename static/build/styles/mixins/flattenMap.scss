@@ -1,0 +1,17 @@
+@mixin flatten-map($map, $prefix: "", $property-prefix: "") {
+    @each $key, $value in $map {
+        // If value is a nested map, recurse with updated prefix
+        @if type-of($value) == "map" {
+            $new-prefix: if($prefix == "", "#{$key}", "#{$prefix}-#{$key}");
+            @include flatten-map($value, $new-prefix, $property-prefix);
+        } @else {
+            // Output the flattened property
+            $property-name: if($prefix == "", "#{$key}", "#{$prefix}-#{$key}");
+            #{$property-prefix}#{$property-name}: #{$value};
+        }
+    }
+}
+
+@mixin flatten-map-into-css-vars($map, $prefix: "") {
+    @include flatten-map($map, $prefix, "--");
+}
