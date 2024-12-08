@@ -3,23 +3,30 @@
     "version": "0.0.8",
     "description": "Type-safe design system generator with SCSS and TypeScript support",
     "type": "module",
-    "main": "./src/index.ts",
-    "types": "./src/index.ts",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "exports": {
         ".": {
-            "import": "./src/index.ts",
-            "types": "./src/index.ts"
+            "import": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        },
+        "./cli/*": {
+            "import": "./dist/cli/*.js"
         }
     },
     "bin": {
-        "design-forge": "node --loader ts-node/esm ./src/cli/index.ts"
+        "design-forge": "./dist/cli/index.js"
     },
     "files": [
-        "src/**/*",
+        "dist/**/*",
         "static"
     ],
     "scripts": {
-        "test": "node --test"
+        "build": "tsc && node build.js",
+        "prepare": "npm run build",
+        "prepublishOnly": "npm run build",
+        "test": "node --test",
+        "test:build": "npm run build && node ./dist/cli/index.js init"
     },
     "dependencies": {
         "commander": "^11.0.0",
@@ -29,12 +36,6 @@
         "typescript": "^5.0.0"
     },
     "devDependencies": {
-        "@mogielski/design-forge": "^0.0.3",
-        "@types/inquirer": "^8.2.5",
-        "@types/node": "^20.0.0",
-        "@types/react": "^18.0.0"
-    },
-    "peerDependencies": {
-        "react": ">=16.8.0"
+        "esbuild": "^0.20.0"
     }
 }

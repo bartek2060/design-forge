@@ -1,5 +1,9 @@
 import path from "path";
 import { FileDefinition, FileConfig } from "./types";
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export const FILE_TYPES = {
     STYLE: {
@@ -29,9 +33,9 @@ export const BUILD_FOLDER_NAME = "build";
 export const BUILD_CLASSES_BREAKPOINT_KEY = "bp";
 
 export const STATIC_PATH = {
-    build: path.join(__dirname, "../static/build"),
-    init: path.join(__dirname, "../static/init"),
-};
+    init: path.join(__dirname, "../../static/init"),
+    build: path.join(__dirname, "../../static/build"),
+} as const;
 
 export const FILES: Required<FileDefinition<FileConfig>> = {
     styles: {

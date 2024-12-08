@@ -5,5 +5,11 @@ tests/
 .editorconfig
 .eslintrc
 .prettierrc
-tsconfig.json
 !TODO
+
+# Additional files to ignore
+node_modules/
+coverage/
+.DS_Store
+*.log
+.env*
