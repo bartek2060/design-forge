@@ -54,9 +54,12 @@ export async function loadConfigFile(configPath: string): Promise<DesignConfig> 
     logger.info(`Loading design config at: ${logger.color.cyan(absoluteConfigPath)}`);
 
     try {
-        // Now we can directly import the TypeScript file
-        const configUrl = new URL(`file://${absoluteConfigPath}`).href;
-        const config = await import(configUrl);
+        // Modify the import to handle both ESM and CommonJS
+        const configUrl = `file://${absoluteConfigPath}`;
+        const config = await import(configUrl).catch(async () => {
+            // Fallback to require if import fails
+            return { default: require(absoluteConfigPath) };
+        });
 
         if (!config.default) {
             throw new Error(`Config file must have a default export.\nFile: ${absoluteConfigPath}`);
