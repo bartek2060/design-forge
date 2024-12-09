@@ -1,4 +1,4 @@
-import { UtilityGeneratorInput } from "../../../../..";
+import { UtilityGeneratorInput } from "@mogielski/design-forge";
 
 import opacityUtility from "./opacity";
 
