@@ -33,8 +33,8 @@ export const BUILD_FOLDER_NAME = "build";
 export const BUILD_CLASSES_BREAKPOINT_KEY = "bp";
 
 export const STATIC_PATH = {
-    init: path.join(__dirname, "../../static/init"),
-    build: path.join(__dirname, "../../static/build"),
+    init: path.join(__dirname, "../static/init"),
+    build: path.join(__dirname, "../static/build"),
 } as const;
 
 export const FILES: Required<FileDefinition<FileConfig>> = {
