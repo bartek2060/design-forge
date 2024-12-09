@@ -7,16 +7,16 @@ const cliPath = path.join(__dirname, '../src/cli/index.ts');
 
 // Forward all command line arguments after the script name
 const args = process.argv.slice(2);
-const tsNode = spawn('npx', ['ts-node', cliPath, ...args], {
+const tsxProcess = spawn('npx', ['tsx', cliPath, ...args], {
   stdio: 'inherit',
   shell: true
 });
 
-tsNode.on('error', (err) => {
-  console.error('Failed to start ts-node:', err);
+tsxProcess.on('error', (err) => {
+  console.error('Failed to start tsx:', err);
   process.exit(1);
 });
 
-tsNode.on('exit', (code) => {
+tsxProcess.on('exit', (code) => {
   process.exit(code || 0);
 });

@@ -17,16 +17,16 @@
         "static"
     ],
     "scripts": {
-        "start": "ts-node ./src/cli/index.ts"
+        "start": "tsx ./src/cli/index.ts"
     },
     "dependencies": {
         "commander": "^11.0.0",
         "inquirer": "^8.2.5",
-        "prettier": "^3.3.3",
-        "ts-node": "^10.9.2",
-        "typescript": "^5.0.0"
+        "prettier": "^3.3.3"
     },
     "devDependencies": {
-        "@types/inquirer": "^9.0.7"
+        "@types/inquirer": "^9.0.7",
+        "tsx": "^4.19.2",
+        "typescript": "^5.0.0"
     }
 }
