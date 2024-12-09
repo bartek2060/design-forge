@@ -2,6 +2,8 @@
     -   Theme related components
     -   className utility
 
+Fix build script / remove ts from dependencies
+
 [Finalizing]
 -   Tests
     Your task is to create general test case for the @design-forge

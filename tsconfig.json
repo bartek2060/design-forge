@@ -13,6 +13,6 @@
       "rootDir": ".",
       "baseUrl": "."
   },
-  "include": ["src/**/*", "bin/**/*"],
-  "exclude": ["node_modules", "dist", "**/static/**"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/static/**"]
 }
