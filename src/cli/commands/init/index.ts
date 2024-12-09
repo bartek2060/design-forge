@@ -31,7 +31,7 @@ function nextStepInstructions(configuration: ConfigurationAnswers) {
 
     logger.warn(`2. Implement scripts in your ${logger.color.blue("package.json")}`);
     console.log(`   ▻ Your ${logger.color.green("build script")} eg.`);
-    console.log(logger.color.cyan(`         "build": "npm run design:build && next build"`));
+    console.log(logger.color.cyan(`         "build": "npm run design-forge:build && next build"`));
     console.log("");
     console.log(`   ▻ Your ${logger.color.green("watch/live dev script")} eg.`);
     console.log(logger.color.cyan(`         "dev": "concurrently -n \"DESIGN-FORGE,NEXT\" -c \"blue,green\" \"npm run design-forge:watch\" \"next dev\""`));
