@@ -3,14 +3,9 @@
     "version": "0.0.19",
     "description": "Type-safe design system generator with SCSS and TypeScript support",
     "main": "./src/index.ts",
+    "types": "./src/index.ts",
     "bin": {
         "design-forge": "./bin/design-forge"
-    },
-    "exports": {
-        ".": {
-            "import": "./src/index.ts",
-            "types": "./src/index.ts"
-        }
     },
     "files": [
         "src",
