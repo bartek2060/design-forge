@@ -54,9 +54,6 @@ export async function loadConfigFile(configPath: string): Promise<DesignConfig> 
     logger.info(`Loading design config at: ${logger.color.cyan(absoluteConfigPath)}`);
 
     try {
-        // Register ts-node for TypeScript support
-        require('ts-node/register');
-
         // Now we can directly import the TypeScript file
         const configUrl = new URL(`file://${absoluteConfigPath}`).href;
         const config = await import(configUrl);
