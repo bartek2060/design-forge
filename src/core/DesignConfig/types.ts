@@ -1,5 +1,6 @@
-import type { NestedRecord, Themes, ThemeTokens, UtilityPropertyConfig } from "../../types";
+import { isBuildable, isTokenConfig, type NestedRecord, type Themes, type ThemeTokens, type UtilityPropertyConfig } from "../../types";
 
+import DesignConfig from "./DesignConfig";
 import TokenConfig from "../TokenConfig";
 import ThemeConfig from "../ThemeConfig";
 import UtilityConfig from "../UtilityConfig";
@@ -91,4 +92,12 @@ export interface UtilityGeneratorInput {
 export interface DesignConfigInput {
     tokens: TokenGeneratorInput;
     utilities?: UtilityGeneratorInput;
+}
+
+export function isDesignConfig(value: unknown): value is DesignConfig {
+    if (!value || typeof value !== "object") return false;
+    const hasTokens = "tokens" in value;
+    const hasBuild = isBuildable(value);
+
+    return hasTokens && hasBuild;
 }

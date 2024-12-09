@@ -5,6 +5,7 @@ import path from "path";
 import prettier from "prettier";
 
 import type { StyleBuildDefinition, FileConfig } from "../../../types/build";
+import { isDesignConfig } from "../../../types";
 
 import { logger } from "../../../utils/logger";
 
@@ -54,23 +55,18 @@ export async function loadConfigFile(configPath: string): Promise<DesignConfig> 
     logger.info(`Loading design config at: ${logger.color.cyan(absoluteConfigPath)}`);
 
     try {
-        // Modify the import to handle both ESM and CommonJS
-        const configUrl = `file://${absoluteConfigPath}`;
-        const config = await import(configUrl).catch(async () => {
-            // Fallback to require if import fails
-            return { default: require(absoluteConfigPath) };
-        });
-
-        if (!config.default) {
+        const importedConfig = await import(absoluteConfigPath);
+        if (!importedConfig.default) {
             throw new Error(`Config file must have a default export.\nFile: ${absoluteConfigPath}`);
         }
+        const config = importedConfig.default;
 
-        if (!(config.default instanceof DesignConfig)) {
-            throw new Error(`Config file must default export a class that extends DesignSystem.\nFile: ${absoluteConfigPath}`);
+        if (!(isDesignConfig(config))) {
+            throw new Error(`Config file must default export a class that is an instance of DesignConfig.\nFile: ${absoluteConfigPath}`);
         }
 
         logger.success("Design configuration loaded successfully");
-        return config.default;
+        return config;
     } catch (error) {
         logger.error(error);
         if (error instanceof Error && error.message.includes("Cannot find module")) {

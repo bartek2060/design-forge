@@ -2,9 +2,7 @@
     "name": "@mogielski/design-forge",
     "version": "0.0.16",
     "description": "Type-safe design system generator with SCSS and TypeScript support",
-    "type": "module",
     "main": "./src/index.ts",
-    "types": "./src/index.ts",
     "bin": {
         "design-forge": "./bin/design-forge"
     },
@@ -19,17 +17,17 @@
         "static",
         "bin"
     ],
-    "scripts": {},
+    "scripts": {
+        "start": "ts-node ./src/cli/index.ts"
+    },
     "dependencies": {
         "commander": "^11.0.0",
         "inquirer": "^8.2.5",
-        "prettier": "^3.3.3"
+        "prettier": "^3.3.3",
+        "ts-node": "^10.9.2"
     },
     "devDependencies": {
         "@types/inquirer": "^9.0.7",
-        "esbuild": "^0.20.0",
-        "ts-node": "^10.9.2",
-        "tsx": "^4.19.2",
         "typescript": "^5.0.0"
     }
 }
