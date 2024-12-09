@@ -3,39 +3,35 @@
     "version": "0.0.11",
     "description": "Type-safe design system generator with SCSS and TypeScript support",
     "type": "module",
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
+    "main": "./src/index.ts",
+    "types": "./src/index.ts",
+    "bin": {
+        "design-forge": "./src/cli/index.ts"
+    },
     "exports": {
         ".": {
-            "import": "./dist/index.js",
-            "types": "./dist/index.d.ts"
-        },
-        "./cli/*": {
-            "import": "./dist/cli/*.js"
+            "import": "./src/index.ts",
+            "types": "./src/index.ts"
         }
     },
-    "bin": {
-        "design-forge": "./dist/cli/index.js"
-    },
     "files": [
-        "dist/**/*",
-        "static"
+        "src/**/*",
+        "static",
+        "bin"
     ],
     "scripts": {
-        "build": "tsc && node build.js",
-        "prepare": "npm run build",
-        "prepublishOnly": "npm run build",
         "test": "node --test",
-        "test:build": "npm run build && node ./dist/cli/index.js init"
+        "test:dev": "node ./src/cli/index.ts init"
     },
     "dependencies": {
         "commander": "^11.0.0",
         "inquirer": "^8.2.5",
-        "prettier": "^3.3.3",
-        "ts-node": "^10.9.2",
-        "typescript": "^5.0.0"
+        "prettier": "^3.3.3"
     },
     "devDependencies": {
-        "esbuild": "^0.20.0"
+        "@types/inquirer": "^9.0.7",
+        "esbuild": "^0.20.0",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.0.0"
     }
 }

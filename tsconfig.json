@@ -12,7 +12,11 @@
     "jsx": "react",
     "noEmit": false,
     "allowImportingTsExtensions": false,
-    "resolveJsonModule": false
+    "resolveJsonModule": true
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist", "**/static/**"]

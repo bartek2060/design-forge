@@ -14,5 +14,8 @@ await esbuild.build({
   outExtension: { '.js': '.js' }
 })
 
+// Make bin file executable
+execSync('chmod +x ./bin/design-forge', { stdio: 'inherit' })
+
 // Build type declarations separately since esbuild doesn't handle them
 execSync('tsc --emitDeclarationOnly --declaration', { stdio: 'inherit' }) 
