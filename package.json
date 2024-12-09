@@ -6,7 +6,7 @@
     "main": "./src/index.ts",
     "types": "./src/index.ts",
     "bin": {
-        "design-forge": "./src/cli/index.ts"
+        "design-forge": "./bin/design-forge"
     },
     "exports": {
         ".": {
@@ -19,10 +19,7 @@
         "static",
         "bin"
     ],
-    "scripts": {
-        "test": "node --test",
-        "test:dev": "node ./src/cli/index.ts init"
-    },
+    "scripts": {},
     "dependencies": {
         "commander": "^11.0.0",
         "inquirer": "^8.2.5",
@@ -32,6 +29,7 @@
         "@types/inquirer": "^9.0.7",
         "esbuild": "^0.20.0",
         "ts-node": "^10.9.2",
+        "tsx": "^4.19.2",
         "typescript": "^5.0.0"
     }
 }
