@@ -88,15 +88,15 @@ export async function loadConfigFile(configPath: string): Promise<DesignConfig> 
  */
 export async function writeFile(fileName: string, content: string, outputDir: string): Promise<string> {
     try {
-        // Ensure output directory exists
-        fs.mkdirSync(outputDir, { recursive: true });
-
         const filePath = path.join(outputDir, fileName);
+        const dirPath = path.dirname(filePath);
+        fs.mkdirSync(dirPath, { recursive: true });
+
         fs.writeFileSync(filePath, content);
 
         return filePath;
     } catch (error) {
-        throw new Error(`Failed to write SCSS file ${fileName}: ${error}`);
+        throw new Error(`Failed to write file ${fileName}: ${error}`);
     }
 }
 
