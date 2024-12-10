@@ -61,7 +61,7 @@ export async function loadConfigFile(configPath: string): Promise<DesignConfig> 
         }
         const config = importedConfig.default;
 
-        if (!(isDesignConfig(config))) {
+        if (!isDesignConfig(config)) {
             throw new Error(`Config file must default export a class that is an instance of DesignConfig.\nFile: ${absoluteConfigPath}`);
         }
 
@@ -72,7 +72,7 @@ export async function loadConfigFile(configPath: string): Promise<DesignConfig> 
         if (error instanceof Error && error.message.includes("Cannot find module")) {
             throw new Error(
                 `Could not find or load config file at: ${absoluteConfigPath}\n` +
-                `Make sure the file exists and its default export is a DesignSystem.`
+                    `Make sure the file exists and its default export is a DesignSystem.`,
             );
         }
         throw error;
@@ -90,8 +90,8 @@ export async function writeFile(fileName: string, content: string, outputDir: st
     try {
         const filePath = path.join(outputDir, fileName);
         const dirPath = path.dirname(filePath);
-        fs.mkdirSync(dirPath, { recursive: true });
 
+        fs.mkdirSync(dirPath, { recursive: true });
         fs.writeFileSync(filePath, content);
 
         return filePath;

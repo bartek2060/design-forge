@@ -16,13 +16,14 @@ const deepExtract = <T>(obj: unknown, predicate: (value: unknown, path: string[]
                 return;
             }
 
+            if (Array.isArray(value)) {
+                value.forEach((item) => extract(item, currentPath));
+                return;
+            }
+
             Object.entries(value).forEach(([key, val]) => {
                 extract(val, [...currentPath, key]);
             });
-        }
-
-        if (Array.isArray(value)) {
-            value.forEach((item) => extract(item, currentPath));
         }
     };
 
