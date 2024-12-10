@@ -5,7 +5,7 @@ interface ResponsiveClassesOptions {
     cssModule?: { [key: string]: string };
 }
 
-export function getResponsiveClasses<T extends string>(
+export function getResponsiveClasses<T extends string | number>(
     responsiveProp: BreakpointProp<T>,
     classGenerator: (value: T) => string,
     options: ResponsiveClassesOptions = {},
