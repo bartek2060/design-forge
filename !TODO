@@ -1,16 +1,27 @@
-3.   Move components to design-forge
+-   User should just have a json file with tokens, like:
+
+```json
+{
+    "baseColor": {
+        "values": {...},
+        "utility": { property: 'color', class:'text-color'}
+    }
+}
+```
+
+3.  Move components to design-forge
+
+
     -   Theme related components
     -   className utility
 
 Fix build script / remove ts from dependencies
 
 [Finalizing]
+
 -   Tests
     Your task is to create general test case for the @design-forge
     Use the new test runner in node22: @https://nodejs.org/api/test.html
 
 -   Docs
     -   This style is easy to follow: https://github.com/SBoudrias/Inquirer.js/blob/19d448cb4e6eee3dbb91e39f5fe1d608fdeae80a/packages/inquirer/README.md?plain=1#L23
-
-[Additional]
-- ComponentConfig, specify default props for components

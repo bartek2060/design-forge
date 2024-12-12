@@ -13,15 +13,15 @@ export default function Row({
     className,
     gap = 2,
     gapX,
-    gapY = 8,
+    gapY,
     alignItems = { base: "start" },
     justifyContent = { base: "between" },
     wrap = true,
     direction = "row",
     ...props
 }: RowProps) {
-    const gapXVal = gapX ?? gap;
-    const gapYVal = gapY ?? gap;
+    const gapXVal = gapX ?? gap ?? "0";
+    const gapYVal = gapY ?? gap ?? "0";
 
     const alignClasses = getResponsiveClasses(alignItems, (value) => `items-${value}`);
     const justifyClasses = getResponsiveClasses(justifyContent, (value) => `justify-${value}`);
@@ -30,8 +30,8 @@ export default function Row({
         <div
             style={
                 {
-                    "--gap-x": !gapXVal ? "0px" : tokens.spacing[gapXVal],
-                    "--gap-y": !gapYVal ? "0px" : tokens.spacing[gapYVal],
+                    "--gap-x": tokens.spacing[gapXVal],
+                    "--gap-y": tokens.spacing[gapYVal],
                 } as React.CSSProperties
             }
             className={classNames(
